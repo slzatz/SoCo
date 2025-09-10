@@ -63,7 +63,6 @@ from collections import OrderedDict
 from ..data_structures import DidlResource, DidlItem, SearchResult
 from ..utils import camel_to_underscore
 
-
 _LOG = logging.getLogger(__name__)
 _LOG.addHandler(logging.NullHandler())
 
@@ -130,13 +129,12 @@ def parse_response(service, response, search_type):
         "search_type": search_type,
         "update_id": None,
     }
-
     for result_type in ("mediaCollection", "mediaMetadata"):
         # Upper case the first letter (used for the class_key)
         result_type_proper = result_type[0].upper() + result_type[1:]
         raw_items = response.get(result_type, [])
         # If there is only 1 result, it is not put in an array
-        if isinstance(raw_items, OrderedDict):
+        if isinstance(raw_items, dict):
             raw_items = [raw_items]
 
         for raw_item in raw_items:
